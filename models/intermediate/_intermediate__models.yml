@@ -24,3 +24,41 @@ models:
         description: "Число неуспешных операций."
       - name: pending_operations_count
         description: "Число операций в ожидании."
+  
+  - name: int_product_categories_tree
+    description: >
+      Одна строка - одна категория. К категории добавлены родитель,
+      корень и глубина. Строится рекурсивным CTE, поэтому не сломается, если появится четвёртый уровень.
+    columns:
+      - name: category_id
+        description: "Номер категории."
+        data_tests: [unique, not_null]
+      - name: category_name
+        description: "Название категории."
+      - name: parent_category_id
+        description: "Номер родительской категории. Пусто у верхнего уровня."
+      - name: parent_category_name
+        description: "Название родительской категории. Пусто у верхнего уровня."
+      - name: root_category_name
+        description: "Категория верхнего уровня, к которой относится эта категория."
+        data_tests: [not_null]
+      - name: category_level
+        description: "Глубина в дереве: 1 — верхний уровень, 2 — подкатегория, 3 — подкатегория подкатегории."
+
+  - name: int_products_with_categories
+    description: "Одна строка — один товар. Категория, её родитель и корень."
+    columns:
+      - name: product_id
+        description: "Номер товара."
+        data_tests: [unique, not_null]
+      - name: product_name
+        description: "Название товара."
+      - name: brand
+        description: "Бренд товара."
+      - name: category_name
+        description: "Категория товара (нижний уровень, к которому он привязан)."
+      - name: parent_category_name
+        description: "Родительская категория."
+      - name: root_category_name
+        description: "Категория верхнего уровня: Electronics или Home."
+        data_tests: [not_null]
