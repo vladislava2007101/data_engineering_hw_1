@@ -1,4 +1,4 @@
-{{ config(distributed_by='order_id', orientation='column') }}
+{{ config(distributed_by='order_id') }}
 
 with items as (
     select * from {{ ref('stg_shop__order_items') }}
