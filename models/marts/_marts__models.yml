@@ -123,14 +123,17 @@ models:
         description: "Статус заказа: paid, pending, returned, cancelled."
       - name: quantity
         description: "Количество штук товара."
+        data_tests: [non_negative]
       - name: unit_price
         description: "Цена за штуку в рублях."
+        data_tests: [non_negative]
       - name: gross_amount
         description: "Сумма позиции до скидки."
       - name: discount_amount
         description: "Скидка на позицию в рублях."
       - name: line_amount
         description: "Сумма позиции после скидки."
+        data_tests: [non_negative]
       - name: is_confirmed
         description: "Подтверждённая покупка: заказ в статусе paid и хотя бы одна успешная оплата."
         data_tests: [not_null]
