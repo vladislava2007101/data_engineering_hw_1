@@ -1,3 +1,5 @@
+{{ config(distributed_replicated=true) }}
+
 with bounds as (
     select
         min(order_date) as min_date,
