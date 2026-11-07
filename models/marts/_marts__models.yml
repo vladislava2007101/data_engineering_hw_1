@@ -11,7 +11,14 @@ models:
         description: "Номер заказа."
         data_tests: [unique, not_null]
       - name: customer_id
-        description: "Клиент, оформивший заказ."
+        description: "Клиент, оформивший заказ. Ключ на dim_customers."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: customer_id
+
       - name: order_date
         description: "Дата заказа."
       - name: ordered_at
@@ -96,8 +103,14 @@ models:
                 to: ref('dim_products')
                 field: product_id
       - name: customer_id
-        description: "Клиент, оформивший заказ."
-        data_tests: [not_null]
+        description: "Клиент, оформивший заказ. Ключ на dim_customers."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: customer_id
+
       - name: order_date
         description: "Дата заказа."
         data_tests:
@@ -121,5 +134,34 @@ models:
       - name: is_confirmed
         description: "Подтверждённая покупка: заказ в статусе paid и хотя бы одна успешная оплата."
         data_tests: [not_null]
+  
+  - name: dim_customers
+    description: "Измерение клиентов: одна строка — один клиент, включая тех, кто ничего не купил."
+    columns:
+      - name: customer_id
+        description: "Номер клиента."
+        data_tests: [unique, not_null]
+      - name: registered_at
+        description: "Время регистрации."
+      - name: registration_date
+        description: "Дата регистрации без времени."
+      - name: city
+        description: "Город клиента."
+      - name: acquisition_channel
+        description: "Канал привлечения: откуда пришёл клиент."
+      - name: first_confirmed_order_id
+        description: "Номер первой подтверждённой покупки. Пусто, если покупок не было."
+      - name: first_confirmed_at
+        description: "Время первой подтверждённой покупки. Пусто, если покупок не было."
+      - name: confirmed_orders_count
+        description: "Число подтверждённых покупок; 0, если их нет."
+        data_tests: [not_null]
+      - name: confirmed_revenue
+        description: "Сумма подтверждённых покупок в рублях; 0, если их нет."
+        data_tests: [not_null]
+      - name: is_buyer
+        description: "Есть хотя бы одна подтверждённая покупка."
+        data_tests: [not_null]
+
 
 

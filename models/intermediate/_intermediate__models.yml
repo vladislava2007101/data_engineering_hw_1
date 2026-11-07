@@ -62,3 +62,10 @@ models:
       - name: root_category_name
         description: "Категория верхнего уровня: Electronics или Home."
         data_tests: [not_null]
+  - name: int_customer_orders
+    description: "Подтверждённые покупки по клиенту: одна строка — один клиент с хотя бы одной покупкой."
+    columns:
+      - name: customer_id
+        description: "Номер клиента."
+        data_tests: [unique, not_null]
+
