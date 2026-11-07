@@ -33,3 +33,41 @@ models:
       - name: is_confirmed
         description: "Подтверждённая покупка: статус paid и хотя бы одна успешная оплата."
         data_tests: [not_null]
+  - name: dim_products
+    description: "Измерение товаров: одна строка — один товар. Иерархия категорий от товара до верхнего уровня."
+    columns:
+      - name: product_id
+        description: "Номер товара."
+        data_tests: [unique, not_null]
+      - name: product_name
+        description: "Название товара."
+      - name: brand
+        description: "Бренд товара."
+      - name: category_name
+        description: "Категория товара — нижний уровень, к которому он привязан."
+      - name: parent_category_name
+        description: "Родительская категория."
+      - name: root_category_name
+        description: "Категория верхнего уровня: Electronics или Home."
+        data_tests: [not_null]
+
+  - name: dim_dates
+    description: "Календарь: одна строка — один день. Все дни от первого до последнего заказа, включая дни без заказов."
+    columns:
+      - name: date_day
+        description: "Дата."
+        data_tests: [unique, not_null]
+      - name: year
+        description: "Год."
+      - name: quarter
+        description: "Квартал: 1–4."
+      - name: month
+        description: "Номер месяца: 1–12."
+      - name: year_month
+        description: "Год и месяц текстом. Удобно для выручки по месяцам."
+      - name: day_of_week
+        description: "День недели: 1 — понедельник, 7 — воскресенье."
+      - name: is_weekend
+        description: "Выходной день: суббота или воскресенье."
+        data_tests: [not_null]
+
