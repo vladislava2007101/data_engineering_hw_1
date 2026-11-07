@@ -40,7 +40,7 @@ models:
       - name: first_paid_at
         description: "Время первой успешной оплаты; пусто, если оплат нет."
       - name: is_confirmed
-        description: "Подтверждённая покупка: статус paid и хотя бы одна успешная оплата."
+        description: '{{ doc("confirmed_order") }}'
         data_tests: [not_null]
   - name: dim_products
     description: "Измерение товаров: одна строка — один товар. Иерархия категорий от товара до верхнего уровня."
