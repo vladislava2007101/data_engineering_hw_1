@@ -1,19 +1,15 @@
 {{ config(distributed_replicated=true) }}
-
-with bounds as (
-    select
-        min(order_date) as min_date,
-        max(order_date) as max_date
-    from {{ ref('stg_shop__orders') }}
-),
-
-days as (
-    select generate_series(min_date, max_date, interval '1 day')::date as date_day
-    from bounds
+with days as (
+    {{ dbt_utils.date_spine(
+        datepart="day",
+        start_date="(select min(order_date) from " ~ ref('stg_shop__orders') ~ ")",
+        end_date="(select max(order_date) + 1 from " ~ ref('stg_shop__orders') ~ ")"
+    ) }}
 )
 
+
 select
-    date_day,
+    date_day::date as date_day,
     extract(year    from date_day)::int     as year,
     extract(quarter from date_day)::int     as quarter,
     extract(month   from date_day)::int     as month,

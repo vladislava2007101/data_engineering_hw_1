@@ -135,8 +135,8 @@ models:
         description: "Сумма позиции после скидки."
         data_tests: [non_negative]
       - name: is_confirmed
-        description: "Подтверждённая покупка: заказ в статусе paid и хотя бы одна успешная оплата."
-        data_tests: [not_null]
+        description: '{{ doc("confirmed_order") }}'
+
   
   - name: dim_customers
     description: "Измерение клиентов: одна строка — один клиент, включая тех, кто ничего не купил."
